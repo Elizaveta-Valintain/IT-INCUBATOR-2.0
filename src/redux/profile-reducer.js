@@ -43,7 +43,7 @@ const profileReducer = (state = initReducersTree, action) => {
         case DELETE_POST:
             return {
                 ...state,
-                posts: state.posts.filter(p => p.id != action.postId )
+                posts: state.posts.filter(p => p.id != action.postId)
                 // ...state,
                 // posts: [...state.posts.map(p => p.id != action.postId)]
             }
@@ -59,8 +59,8 @@ export let addPostActionCreator = (newPostText) => {
     )
 }
 
-export let deletePost = (postId)=>{
-    return(
+export let deletePost = (postId) => {
+    return (
         {type: DELETE_POST, postId}
     )
 }
@@ -74,32 +74,21 @@ export let setStatus = (status) => {
 }
 
 
-export const getUserProfile = (userId) => (dispatch) => {
-
-    profileAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfile(response.data))
-        })
+export const getUserProfile = (userId) => async (dispatch) => {
+    const response = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(response.data))
 }
 
-export const getStatus = (userId) => (dispatch) => {
-
-    profileAPI.getStatus(userId)
-        .then(response => {
-            dispatch(setStatus(response.data))
-        })
+export const getStatus = (userId) => async (dispatch) => {
+    const response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response.data))
 }
 
-export const updateStatus = (status) => (dispatch) => {
-
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-
-        })
+export const updateStatus = (status) => async (dispatch) => {
+    const response = await profileAPI.updateStatus(status)
+    if (response.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
 }
-
 
 export default profileReducer

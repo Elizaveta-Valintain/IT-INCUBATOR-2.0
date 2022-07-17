@@ -1,6 +1,6 @@
 {
   "name": "react-it2",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "private": true,
   "dependencies": {
     "@redux-devtools/extension": "^3.2.2",
@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^17.0.43",
     "axios": "^0.27.2",
+    "eslint-config-react-app": "^7.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
@@ -18,7 +19,8 @@
     "redux-form": "^8.3.8",
     "redux-thunk": "^2.4.1",
     "reselect": "^4.1.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yarn": "1.22.19"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,6 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "packageManager": "yarn@3.2.1"
+  }
 }
