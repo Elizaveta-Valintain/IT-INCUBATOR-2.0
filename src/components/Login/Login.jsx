@@ -1,7 +1,7 @@
 import React from 'react';
-import {Field, reduxForm} from "redux-form";
+import {reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
-import {Input} from "../common/FormsControl/FormsControl";
+import {createField, Input} from "../common/FormsControl/FormsControl";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
@@ -10,32 +10,16 @@ import style from './../common/FormsControl/FormsControl.module.css'
 const maxLength30 = maxLengthCreator(30)
 const maxLength20 = maxLengthCreator(20)
 
-let LoginForm = (props) => {
+let LoginForm = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field
-                    name={"email"}
-                    placeholder={"Email"}
-                    component={Input}
-                    validate={[required, maxLength30]}
-                    type={"text"}/>
-            </div>
-            <div>
-                <Field
-                    name={"password"}
-                    placeholder={"Password"}
-                    component={Input}
-                    validate={[required, maxLength20]}
-                    type={"text"}/>
-            </div>
-            <div>
-                <Field name={"rememberMe"} type={'checkbox'} component={Input}/>RememberMe
-            </div>
+        <form onSubmit={handleSubmit}>
+            {createField("Email", "email", [required, maxLength30], Input, {type: "text"})}
+            {createField("Password", "password", [required, maxLength20], Input, {type: "password"})}
+            {createField(null, "rememberMe", [], Input, {type: "checkbox"}, "RememberMe")}
 
-            {props.error &&
+            {error &&
                 <div className={style.formSummaryError}>
-                    {props.error}
+                    {error}
                 </div>}
 
             {/*<Captcha />*/}
@@ -51,14 +35,12 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        // console.log(formData)
         props.login(formData.email, formData.password, formData.rememberMe)
     }
 
     if (props.isAuth) {
         return <Navigate to={'/profile'}/>
     }
-
 
     return (
         <div>
