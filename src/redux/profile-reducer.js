@@ -43,7 +43,7 @@ const profileReducer = (state = initReducersTree, action) => {
         case DELETE_POST:
             return {
                 ...state,
-                posts: state.posts.filter(p => p.id != action.postId)
+                posts: state.posts.filter(p => p.id !== action.postId)
                 // ...state,
                 // posts: [...state.posts.map(p => p.id != action.postId)]
             }
